@@ -1,46 +1,24 @@
-import { GetStaticProps } from 'next';
-import Profile from '@/components/profile';
-import {
-  getAllUsers,
-  UserProps,
-  getUserCount,
-  getFirstUser
-} from '@/lib/api/user';
-import { defaultMetaProps } from '@/components/layout/meta';
-import clientPromise from '@/lib/mongodb';
+import useSWR from 'swr'
+import TelegramComponent from '../components/Telegram'
+import { Telegram } from '../interfaces'
 
-export default function Home({ user }: { user: UserProps }) {
-  return <Profile user={user} settings={false} />;
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+export default function Index() {
+  const { data, error } = useSWR('/api/telegram', fetcher)
+
+  if (error) return <div>Failed to load</div>
+  if (!data) return <div>Loading...</div>
+
+  return (
+     <div>
+      <h1>Telegrams list</h1>
+        {data.map((p: Telegram) => (  
+          <p>
+            {p.id}: 
+            <TelegramComponent key={p.id} telegram={p} />
+          </p>
+        ))}
+    </div>
+  )
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  // You should remove this try-catch block once your MongoDB Cluster is fully provisioned
-  try {
-    await clientPromise;
-  } catch (e: any) {
-    if (e.code === 'ENOTFOUND') {
-      // cluster is still provisioning
-      return {
-        props: {
-          clusterStillProvisioning: true
-        }
-      };
-    } else {
-      throw new Error(`Connection limit reached. Please try again later.`);
-    }
-  }
-
-  const results = await getAllUsers();
-  const totalUsers = await getUserCount();
-  const firstUser = await getFirstUser();
-
-  return {
-    props: {
-      meta: defaultMetaProps,
-      results,
-      totalUsers,
-      user: firstUser
-    },
-    revalidate: 10
-  };
-};
