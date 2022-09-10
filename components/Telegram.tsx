@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { Telegram } from '../interfaces'
 
 type TelegramProps = {
-  telegram: Telegram
+  telegram: Telegram;
+  key: string;
 }
 
 export default function TelegramComponent({ telegram }: TelegramProps) {
