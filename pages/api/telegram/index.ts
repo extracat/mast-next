@@ -2,6 +2,11 @@ import clientPromise from '../../../lib/mongodb'
 import { NextApiResponse, NextApiRequest } from 'next'
 import { Telegram } from '../../../interfaces'
 
+type ResponseError = {
+  message: string
+}
+
+
 const db = { db: 'test', collection: 'telegrams' }
 
 async function getAllDocsFormDB(_db) {
