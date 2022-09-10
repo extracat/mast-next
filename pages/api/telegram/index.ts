@@ -73,7 +73,7 @@ export default async function handler(
     const data = req.body
       // Both of these are required.
     if (!data.title || !data.body) {
-      return res.json({ data: 'Title and body are required.' })
+      return res.status(400).json({})
     }
 
     const result = await addDocToDB(db, data.title, data.body);
