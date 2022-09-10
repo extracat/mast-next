@@ -1,5 +1,3 @@
-# Master Telegram API
+# Master Telegram Front
 
 Astrotelegraph service.
-
-.
