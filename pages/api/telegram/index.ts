@@ -53,7 +53,7 @@ async function addDocToDB(_db, title, body) {
       body: body 
     };
 
-    console.log(telegram)
+    //console.log(telegram)
 
     const res = await collection.insertOne(telegram);
 
