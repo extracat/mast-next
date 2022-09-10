@@ -20,7 +20,7 @@ export default function Index() {
             {data.map((p: Telegram) => (  
                 <p>
                     {p.id}: 
-                    <TelegramComponent key={p.id} telegram={p} />
+                    <TelegramComponent key={p.key} telegram={p} />
                 </p>
             ))}
         </Layout>
