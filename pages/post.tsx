@@ -19,8 +19,8 @@ export default function PostNewTelegram() {
 
   // Get data from the form.
   const data = {
-    title: form.title.value as string,
-    body: form.body.value as string,
+    title: form.title.value,
+    body: form.body.value,
   }
 
   // Send the form data to our API and get a response.
