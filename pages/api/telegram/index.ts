@@ -65,7 +65,7 @@ async function addDocToDB(_db, title, body) {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Telegram[]>
+  res: NextApiResponse<Telegram[] | ResponseError>
 ) {
 
   if (req.method === 'POST') {
