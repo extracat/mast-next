@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import TelegramComponent from '../components/Telegram'
 import Layout from '../components/layout';
 import { Telegram } from '../interfaces'
+import Link from 'next/link'
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -14,6 +15,7 @@ export default function Index() {
 
     return (
         <Layout>
+            <p><Link href="/post">Post new telegram</Link></p>
             <h1>Telegrams list</h1>
             {data.map((p: Telegram) => (  
                 <p>

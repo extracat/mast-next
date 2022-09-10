@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
+import Link from 'next/link'
 
 export default function Layout({ children }) {
     return (
@@ -11,7 +12,7 @@ export default function Layout({ children }) {
             </Head>
 
             <header className="header">
-             <div className="header-content">Master Telegraph</div>
+             <div className="header-content"><Link href="/">Master Telegraph</Link></div>
             </header>
 
             <main className="main">

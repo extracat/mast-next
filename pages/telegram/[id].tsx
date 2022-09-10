@@ -29,7 +29,6 @@ export default function Telegram() {
             <code>Telegram ID = {data.id}</code>
             <h2>{data.title}</h2>
             <p>{data.body}</p>
-            <p><Link href="/">Home</Link></p>
         </Layout>
     )
 }
