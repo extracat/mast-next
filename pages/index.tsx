@@ -18,9 +18,9 @@ export default function Index() {
             <p><Link href="/post">Post new telegram</Link></p>
             <h1>Telegrams list</h1>
             {data.map((p: Telegram) => (  
-                <p>
+                <p key={p.id}>
                     {p.id}: 
-                    <TelegramComponent key={p.id} telegram={p} />
+                    <TelegramComponent telegram={p} />
                 </p>
             ))}
         </Layout>
