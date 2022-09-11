@@ -27,8 +27,8 @@ export default function PostNewTelegram({ data }) {
 
     // Get data from the form.
     const formData = {
-      title: (form.title as HTMLTextAreaElement).value,
-      body: (form.body as HTMLInputElement).value,
+      title: (form.title as unknown as HTMLTextAreaElement).value,
+      body: (form.body as unknown as HTMLInputElement).value,
     }
 
     const api = JSON.parse(data)
@@ -58,9 +58,9 @@ export default function PostNewTelegram({ data }) {
       
       <form onSubmit={handleSubmit}>
         <div><label htmlFor="title">Title</label></div>
-        <div><input size="50" type="text" id="title" name="title" required /></div>
+        <div><input type="text" id="title" name="title" required /></div>
         <div><label htmlFor="body">Body</label></div>
-        <div><textarea rows="10" cols="40" type="text" id="body" name="body" required /></div>
+        <div><textarea id="body" name="body" required /></div>
         <div><button type="submit">Submit</button></div>
       </form>
     </Layout>
