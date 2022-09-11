@@ -1,34 +1,42 @@
+import api from '../../lib/api'
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/layout';
 import { useRouter } from 'next/router'
-import useSWR from 'swr'
 
-const fetcher = async (url: string) => {
-    const res = await fetch(url)
+
+// Will get from API at serverside
+export async function getServerSideProps(context) {
+
+  try {
+    const res = await fetch(api.telegram + "/" + context.query.id)
     const data = await res.json()
 
-    if (res.status !== 200) {
-        throw new Error(data.message)
+    return {
+      props: { data }, // will be passed to the page component as props
     }
-    return data
+
+  } catch (e) {
+      console.error("Error: Can't get data from API")
+      return {
+        notFound: true,
+      };
+  }
+
 }
 
-export default function Telegram() {
-    const { query } = useRouter()
-    const { data, error } = useSWR(
-        () => query.id && `/api/telegram/${query.id}`,
-        fetcher
-    )
+export default function Telegram({ data }) {
+   
+  if (data.notFound) {
+    return <div>Failed to load</div>
+  }
+  if (!data) return <div>Loading...</div>
 
-    if (error) return <div>{error.message}</div>
-    if (!data) return <div>Loading...</div>
-
-    return (
-        <Layout>
-            <code>Telegram ID = {data.id}</code>
-            <h2>{data.title}</h2>
-            <p>{data.body}</p>
-        </Layout>
-    )
+  return (
+    <Layout>
+      <code>Telegram ID = {data.id}</code>
+      <h2>{data.title}</h2>
+      <p>{data.body}</p>
+    </Layout>
+  )
 }

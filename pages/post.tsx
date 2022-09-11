@@ -1,5 +1,5 @@
+import api from '../lib/api'
 import Head from 'next/head'
-import useSWR from 'swr'
 import TelegramComponent from '../components/Telegram'
 import Layout from '../components/layout';
 import { Telegram } from '../interfaces'
@@ -8,7 +8,15 @@ import { FormEvent } from 'react'
 import Router from 'next/router'
 import { useEffect } from 'react'
 
-export default function PostNewTelegram() {
+export async function getServerSideProps(context) {
+    const data = JSON.stringify(api)
+    return {
+      props: { data }, // will be passed to the page component as props
+    }
+}
+
+
+export default function PostNewTelegram({ data }) {
   // Handle the submit event on form submit.
   const handleSubmit = async (event: FormEvent) => {
     // Stop the form from submitting and refreshing the page.
@@ -17,23 +25,21 @@ export default function PostNewTelegram() {
     // Cast the event target to an html form
     const form = event.target// as HTMLFormElement
 
-    console.log(`form`)
-    console.log(form)
-
     // Get data from the form.
-    const data = {
+    const formData = {
       title: form.title.value,
       body: form.body.value,
     }
 
+    const api = JSON.parse(data)
 
     // Send the form data to our API and get a response.
-    const response = await fetch('/api/telegram', {
+    const response = await fetch(api.telegram, {
       // Body of the request is the JSON data we created above.
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
       // Tell the server we're sending JSON.
       headers: {
-      'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       // The method is POST because we are sending data.
       method: 'POST',
