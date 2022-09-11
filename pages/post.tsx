@@ -23,7 +23,7 @@ export default function PostNewTelegram({ data }) {
     event.preventDefault()
 
     // Cast the event target to an html form
-    const form = event.target// as HTMLFormElement
+    const form = event.target as HTMLFormElement
 
     // Get data from the form.
     const formData = {
