@@ -1,3 +1,3 @@
 # Master Telegram Front
 
-Astrotelegraph service.
+Astro telegraph service front web application.
