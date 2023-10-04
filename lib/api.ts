@@ -1,12 +1,12 @@
 const env = process.env.NODE_ENV
 
 const api = {
-    telegram: "https://mast-api.vercel.app/api/telegram",
+    telegram: "https://astro-data-api.vercel.app/api/v1/telegram",
   }
 
 if (env == "development"){
 
-  api.telegram = "http://localhost:3000/api/telegram"  
+  api.telegram = "http://localhost:3000/api/v1/telegram"  
 
 } else if (env == "production") {
   
