@@ -8,8 +8,8 @@ type TelegramProps = {
 
 export default function TelegramComponent({ telegram }: TelegramProps) {
   return (
-      <Link href="/telegram/[id]" as={`/telegram/${telegram.id}`}>
-        <a>{telegram.title}</a>
-      </Link>
+        <Link href="/telegram/[id]" as={`/telegram/${telegram._id}`}>
+          <a>{telegram.title}</a>
+        </Link>       
   )
 }

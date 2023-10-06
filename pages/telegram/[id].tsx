@@ -10,8 +10,7 @@ export async function getServerSideProps(context) {
 
   try {
     const res = await fetch(api.telegram + "/" + context.query.id)
-    const data = await res.json()
-
+    let data = await res.json()
     return {
       props: { data }, // will be passed to the page component as props
     }
@@ -34,9 +33,11 @@ export default function Telegram({ data }) {
 
   return (
     <Layout>
-      <code>Telegram ID = {data.id}</code>
+      <code>Telegram ID = {data._id}</code>
       <h2>{data.title}</h2>
-      <p>{data.body}</p>
+      <p>{data.id}</p>
+      <p>{data.timestamp}</p>
+      {data.body.split(/\r\n|\n|\r/).map((line, index) => (<p key={index}>{line}</p>))}
     </Layout>
   )
 }
